@@ -8,17 +8,31 @@ namespace MSTesting_Exceptions
 {
     public class MoodAnalyzer
     {
-        public string AnalyzeMood(string message)
+        private string message; //declaring the private string type instance/global variable
+
+        public MoodAnalyzer(string message) // parameterized constructor
         {
-            if (message.ToLower().Contains("sad"))
+            this.message = message;  // initiallizing the instance variable
+        }
+
+        public string AnalyzeMood()  //param method to analayze mood
+        {
+            try
             {
-                return "SAD";
+                if (this.message.ToLower().Contains("sad"))
+                {
+                    return "SAD";
+                }
+                else
+                {
+                    return "HAPPY";
+                }
             }
-            else
+            catch
             {
                 return "HAPPY";
             }
+
         }
     }
-        
 }
