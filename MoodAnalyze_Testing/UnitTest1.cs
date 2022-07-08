@@ -8,46 +8,65 @@ namespace MoodAnalyze_Testing
     {
         private MoodAnalyzer moodAnalyzer;
 
-
+        /// <summary>
+        /// UC4.1 => Using Reflection Return Object or throw Custome Exception
+        /// </summary>
         [TestMethod]
-        public void Given_NULLMood_shouldReturn_MoodAnalyzeCustomeException_NUllMessage() //Test method
+        public void Relection_ReturnDefaultConstructor()
         {
+            object obj = null;
+            MoodAnalyzer expected = new MoodAnalyzer();
             try
             {
-                // >> Arrange
-                string message = null;  //Expexted Output stored in string varaible
-                moodAnalyzer = new MoodAnalyzer(message); //creating object of MOodAnalyzer class with passing param message
-
-                // >> Act
-                string Result = moodAnalyzer.AnalyzeMood(); //calling Analyzemood methd and storing returned string in result
+                //Here We have CreateMoodAnalyzerObject static method 
+                obj = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MsTesting_Exceptions.MoodAnalyzer", "MoodAnalyzer");
 
             }
-            catch (MoodAnalyzer_CustomException e)//cathing the exception thrown by analyzeMood methd
+            catch (MoodAnalyzer_CustomException e)
             {
-                // >> Assert
-                Assert.AreEqual("Message can not be NULL!!", e.Message);
+                throw new System.Exception(e.Message); //throwing Exception
             }
         }
 
+        /// <summary>
+        /// UC 4.2 => Using Reflection Return Object or throw Custome Exception
+        /// </summary>
+
         [TestMethod]
-        public void Given_EMptyMood_shouldReturn_MoodAnalyzerCustomeException_EMptyMessage() //Test method
+        public void Using_Relection_CheckingOBJects_Throws_Exception_ClassNOtFound()
         {
+            object expected = "Class Not Found!!";
             try
             {
-                // >> Arrange
-                string message = "";  //Expexted Output stored in string varaible
-                moodAnalyzer = new MoodAnalyzer(message); //creating object of MOodAnalyzer class with passing param message
-
-                // >> Act
-                string Result = moodAnalyzer.AnalyzeMood(); //calling Analyzemood methd and storing returned string in result
+                //Here We have CreateMoodAnalyzerObject static method 
+                object obj = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MsTesting_Exceptions1.MoodAnalyzer", "MoodAnalyzer");
 
             }
-            catch (MoodAnalyzer_CustomException e) //cathing the exception thrown by analyzeMood methd
+            catch (MoodAnalyzer_CustomException e)
             {
-                // >> Assert
-                Assert.AreEqual("Message Should Not Be EMPTY!!", e.Message);
+                Assert.AreEqual(e.Message, expected);//Here weare comparing message from the customeexception and our expected message
             }
+        }
 
+        /// <summary>
+        /// UC 4.3 => Using Reflection Return Object or throw Custome Exception
+        /// </summary>
+
+        [TestMethod]
+        public void Using_Relection_CheckingOBJects_Throws_Exception_ConstructorNotFound()
+        {
+            object expected = "Constructor Not Found!!";
+
+            try
+            {
+                //Here We have CreateMoodAnalyzerObject static method 
+                object obj = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MsTesting_Exceptions.MoodAnalyzer", "MoodAnaly");
+
+            }
+            catch (MoodAnalyzer_CustomException e)
+            {
+                Assert.AreEqual(e.Message, expected);
+            }
         }
     }
 }
