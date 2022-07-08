@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSTesting_Exceptions;
 
-namespace MoodAnalyze_Testing
+namespace MoodAnalyze_Testing_uc5
 {
     [TestClass]
     public class UnitTest1
@@ -9,58 +9,61 @@ namespace MoodAnalyze_Testing
         private MoodAnalyzer moodAnalyzer;
 
         /// <summary>
-        /// UC4.1 => Using Reflection Return Object or throw Custome Exception
+        /// UC5.1 => Using Reflection return moodanalyzer object
         /// </summary>
         [TestMethod]
-        public void Relection_ReturnDefaultConstructor()
+        public void Reflection_withCorrectclassName_CorrectConstrutorName_ReturnsMoodAnalyzerObj()
         {
-            object obj = null;
-            MoodAnalyzer expected = new MoodAnalyzer();
+            string Message = "I am in Sad Mood";
+            MoodAnalyzer expected = new MoodAnalyzer(Message);
+            object actual = null;
             try
             {
+
                 //Here We have CreateMoodAnalyzerObject static method 
-                obj = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MsTesting_Exceptions.MoodAnalyzer", "MoodAnalyzer");
+                actual = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("MsTesting_Exceptions.MoodAnalyzer", "MoodAnalyzer", Message);
 
             }
             catch (MoodAnalyzer_CustomException e)
             {
                 throw new System.Exception(e.Message); //throwing Exception
             }
+            actual.Equals(expected);
         }
 
         /// <summary>
-        /// UC 4.2 => Using Reflection Return Object or throw Custome Exception
+        /// UC 5.2 => Using Reflection_passsing Wrong class NAme_throw Custome Exception
         /// </summary>
 
         [TestMethod]
-        public void Using_Relection_CheckingOBJects_Throws_Exception_ClassNOtFound()
+        public void Using_Relection_Paasing_WrongClassName_Throws_Exception_ClassNOtFound()
         {
-            object expected = "Class Not Found!!";
+            string message = "Class Not Found!!";
+            object actual = null;
             try
             {
-                //Here We have CreateMoodAnalyzerObject static method 
-                object obj = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MsTesting_Exceptions1.MoodAnalyzer", "MoodAnalyzer");
+                actual = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("MsTesting_Exceptions.MoodAnalyzer", "MoodAnalyzer", message);
 
             }
             catch (MoodAnalyzer_CustomException e)
             {
-                Assert.AreEqual(e.Message, expected);//Here weare comparing message from the customeexception and our expected message
+                Assert.AreEqual(message, e.Message);
             }
         }
 
         /// <summary>
-        /// UC 4.3 => Using Reflection Return Object or throw Custome Exception
+        /// UC 5.3 => Using Reflection_passingWrongContructorName_throw Custome Exception
         /// </summary>
 
         [TestMethod]
-        public void Using_Relection_CheckingOBJects_Throws_Exception_ConstructorNotFound()
+        public void Using_Relection_Paasing_WrongConstructorName_Throws_Exception_ConstructorNOtFound()
         {
             object expected = "Constructor Not Found!!";
 
             try
             {
                 //Here We have CreateMoodAnalyzerObject static method 
-                object obj = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MsTesting_Exceptions.MoodAnalyzer", "MoodAnaly");
+                object obj = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("MSTesting_Exceptions.MoodAnalyzer", "MoodAnaly", "Constructor Not Found!!");
 
             }
             catch (MoodAnalyzer_CustomException e)

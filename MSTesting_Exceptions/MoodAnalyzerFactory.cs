@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -33,6 +34,30 @@ namespace MSTesting_Exceptions
                 throw new MoodAnalyzer_CustomException(MoodAnalyzer_CustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor Not Found!!");
             }
 
+        }
+
+        public static object CreateObjectOfPramMoodAnalyzer(string ClassName, string ConstructorName, string message)
+        {
+            Type type = typeof(MoodAnalyzer);
+            if (type.FullName.Equals(ClassName))
+            {
+                if (type.Name.Equals(ConstructorName))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { typeof(string) });
+                    var obj = constructorInfo.Invoke(new object[] { message });
+                    return Convert.ToString(obj);
+                }
+                else
+                {
+                    throw new MoodAnalyzer_CustomException(MoodAnalyzer_CustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor Not Found!!");
+                }
+            }
+
+            else
+            {
+                throw new MoodAnalyzer_CustomException(MoodAnalyzer_CustomException.ExceptionType.NO_SUCH_CLASS, "Class Not Found!!");
+            }
+            return default;
         }
     }
 }
