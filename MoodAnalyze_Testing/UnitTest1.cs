@@ -8,21 +8,22 @@ namespace MoodAnalyze_Testing
     {
         private MoodAnalyzer moodAnalyzer;
 
-        [TestMethod]
-        public void GivenSadMood_shouldReturn_SAD() //Test method
+        public UnitTest1()
         {
-            // >> Arrange
-            string expected = "HAppy";
-            string message = "I am in HAppy Mood";
-            moodAnalyzer = new MoodAnalyzer(message);
-
-            // >> Act
-            string Result = moodAnalyzer.AnalyzeMood();
-
-            // >> Assert
-            Assert.AreEqual(expected, Result);
-
+            moodAnalyzer = new MoodAnalyzer();
         }
 
+        [TestMethod]
+        public void TestMethod1()
+        {
+            // >> arrange
+            moodAnalyzer = new MoodAnalyzer();
+            // >> Act
+            var Result = moodAnalyzer.AnalyzeMood("I am in Sad Mood");
+            // >> Assert
+            Assert.AreEqual(Result, "SAD");
+
+
+        }
     }
 }
