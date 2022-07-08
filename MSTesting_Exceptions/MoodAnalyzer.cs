@@ -10,6 +10,10 @@ namespace MSTesting_Exceptions
     {
         private string message; //declaring the private string type instance/global variable
 
+        public MoodAnalyzer()
+        {
+            //Default constructor
+        }
         public MoodAnalyzer(string message) // parameterized constructor
         {
             this.message = message;  // initiallizing the instance variable
@@ -39,6 +43,6 @@ namespace MSTesting_Exceptions
             }
 
         }
+
     }
 }
- 
