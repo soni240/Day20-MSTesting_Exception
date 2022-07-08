@@ -64,11 +64,18 @@ namespace MSTesting_Exceptions
         {
             try
             {
-                Type type = typeof(MoodAnalyzer);//creating instance of type moodanalyzer using reflection
-                MethodInfo methodinfo = type.GetMethod(methodname);
-                object MoodAnalyzerObject = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("Day_20_MsTesting_Exceptiions.MoodAnalyzer", "MoodAnalyzer", message);
-                object info = methodinfo.Invoke(MoodAnalyzerObject, null);
-                return info.ToString();
+                if (message != null)
+                {
+                    Type type = typeof(MoodAnalyzer);//creating instance of type moodanalyzer using reflection
+                    MethodInfo methodinfo = type.GetMethod(methodname);
+                    object MoodAnalyzerObject = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("MsTesting_Exceptions.MoodAnalyzer", "MoodAnalyzer", message);
+                    object info = methodinfo.Invoke(MoodAnalyzerObject, null);
+                    return info.ToString();
+                }
+                else
+                {
+                    throw new MoodAnalyzer_CustomException(MoodAnalyzer_CustomException.ExceptionType.EMPTY_MESSAGE, "Message should not be null!!");
+                }
 
             }
             catch (NullReferenceException)
@@ -78,7 +85,6 @@ namespace MSTesting_Exceptions
 
         }
 
-
     }
 }
- 
+
