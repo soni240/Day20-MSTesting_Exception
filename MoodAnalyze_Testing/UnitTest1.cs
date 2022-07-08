@@ -19,10 +19,9 @@ namespace MoodAnalyze_Testing
             // >> arrange
             moodAnalyzer = new MoodAnalyzer();
             // >> Act
-            var Result = moodAnalyzer.AnalyzeMood("I am in Sad Mood");
+            var Result = moodAnalyzer.AnalyzeMood("I am in Any Mood");
             // >> Assert
-            Assert.AreEqual(Result, "SAD");
-
+            Assert.AreEqual(Result, "HAPPY");
 
         }
     }
