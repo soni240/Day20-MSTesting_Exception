@@ -8,21 +8,21 @@ namespace MoodAnalyze_Testing
     {
         private MoodAnalyzer moodAnalyzer;
 
-        public UnitTest1()
-        {
-            moodAnalyzer = new MoodAnalyzer();
-        }
-
         [TestMethod]
-        public void TestMethod1()
+        [DataRow(null)]
+        public void Given_NULLMood_shouldReturn_HAPPY(string message) //Test method
         {
-            // >> arrange
-            moodAnalyzer = new MoodAnalyzer();
+            // >> Arrange
+            string expected = "HAPPY";  //Expexted Output stored in string varaible
+            moodAnalyzer = new MoodAnalyzer(message); //creating object of MOodAnalyzer class with passing param message
+
             // >> Act
-            var Result = moodAnalyzer.AnalyzeMood("I am in Any Mood");
+            string Result = moodAnalyzer.AnalyzeMood(); //calling Analyzemood methd and storing returned string in result
+
             // >> Assert
-            Assert.AreEqual(Result, "HAPPY");
+            Assert.AreEqual(expected, Result); //Comparing our expected output with result returned from analyzeMood methd
 
         }
+
     }
 }
