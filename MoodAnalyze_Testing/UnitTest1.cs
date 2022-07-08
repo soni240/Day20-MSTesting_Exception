@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSTesting_Exceptions;
 
-namespace MoodAnalyze_Testing_uc5
+namespace MoodAnalyze_Testing
 {
     [TestClass]
     public class UnitTest1
@@ -42,7 +42,7 @@ namespace MoodAnalyze_Testing_uc5
             object actual = null;
             try
             {
-                actual = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("MsTesting_Exceptions.MoodAnalyzer", "MoodAnalyzer", message);
+                actual = MoodAnalyzerFactory.CreateObjectOfPramMoodAnalyzer("MsTesting_Exceptions.MoodAna", "MoodAnalyzer", message);
 
             }
             catch (MoodAnalyzer_CustomException e)
@@ -70,6 +70,45 @@ namespace MoodAnalyze_Testing_uc5
             {
                 Assert.AreEqual(e.Message, expected);
             }
+        }
+
+        /// <summary>
+        /// UC 6.1 => Using Reflection_passingProperMessage_Return_Happy Mood
+        /// </summary>
+
+        [TestMethod]
+        public void Using_Relection_Paasing_ProperMessage_IaminHappyMood_Return_HAPPY()
+        {
+            string expected = "HAPPY";
+
+            //Here We have CreateMoodAnalyzerObject static method 
+            object actual = MoodAnalyzerFactory.Invoking_MoodAnalyzer_AnalyzeMood_Methd("I am in Happy Mood", "AnalyzeMood");
+            Assert.AreEqual(actual, expected);
+
+        }
+
+        /// <summary>
+        /// UC 6.2 => Using Reflection_passingImProperMethodNAme_Throw_CustomeException
+        /// </summary>
+
+        [TestMethod]
+        public void Using_Relection_Paasing_ImProperMethodName_Throw_CustomeException()
+        {
+            string message = "HAPPY";
+            string expected_Exception = "Method Not Found!!";
+            try
+            {
+                //Here We have CreateMoodAnalyzerObject static method 
+                object actual = MoodAnalyzerFactory.Invoking_MoodAnalyzer_AnalyzeMood_Methd("I am in Happy Mood", "Fake_AnalyzeMood");
+                Assert.AreEqual(actual, message);
+
+            }
+            catch (MoodAnalyzer_CustomException e)
+            {
+                Assert.AreEqual(expected_Exception, e.Message);
+            }
+
+
         }
     }
 }
