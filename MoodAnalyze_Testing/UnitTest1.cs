@@ -12,8 +12,8 @@ namespace MoodAnalyze_Testing
         public void GivenSadMood_shouldReturn_SAD() //Test method
         {
             // >> Arrange
-            string expected = "SAD";
-            string message = "I am in Sad Mood";
+            string expected = "HAppy";
+            string message = "I am in HAppy Mood";
             moodAnalyzer = new MoodAnalyzer(message);
 
             // >> Act
